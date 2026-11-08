@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sunshine: {
+                            50: '#fefce8',
+                            100: '#fef9c3',
+                            200: '#fef08a',
+                            300: '#fde047',
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        },
+                        skyblue: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Top Notice Bar -->
+    <div class="bg-sunshine-500 text-slate-900 py-2 px-4 text-xs md:text-sm font-medium text-center shadow-inner">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-2">
+            <span><i class="fa-solid fa-circle-check mr-1 text-slate-900"></i> Zertifizierter Anbieter für haushaltsnahe Dienstleistungen & Entlastungsleistungen</span>
+            <span class="hidden md:inline">|</span>
+            <span><i class="fa-solid fa-euro-sign mr-1 text-slate-900"></i> Direkte Abrechnung mit Pflegekassen (§ 45b SGB XI)</span>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sunshine-400 to-sky-500 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-hands-holding-child text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="block text-lg md:text-xl font-bold text-slate-900 leading-tight">Licht und Freude</span>
+                        <span class="block text-xs font-medium text-sky-600 tracking-wide uppercase">Alltagsbegleitung & Haushalt</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-slate-600 text-sm">
+                    <a href="#leistungen" class="hover:text-sky-600 transition-colors">Leistungen</a>
+                    <a href="#standorte" class="hover:text-sky-600 transition-colors flex items-center gap-1">
+                        Standorte <span id="current-location-badge" class="bg-sky-100 text-sky-700 text-xs px-2 py-0.5 rounded-full font-semibold">München</span>
+                    </a>
+                    <a href="#pflegekasse" class="hover:text-sky-600 transition-colors">Pflegekasse & §45b</a>
+                    <a href="#ueber-uns" class="hover:text-sky-600 transition-colors">Über uns</a>
+                    <a href="#kontakt" class="hover:text-sky-600 transition-colors">Kontakt</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <a href="tel:08912345678" class="text-xs font-semibold text-slate-700 hover:text-sky-600 flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-full bg-sky-50 flex items-center justify-center text-sky-600">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="block text-slate-400 font-normal">Kostenlose Beratung</span>
+                            <span class="text-sm font-bold text-slate-800">089 / 123 456 78</span>
+                        </div>
+                    </a>
+                    <a href="#kontakt" class="bg-gradient-to-r from-sunshine-400 to-sunshine-500 hover:from-sunshine-500 hover:to-sunshine-600 text-slate-900 font-semibold px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all text-sm">
+                        Termin anfragen
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-700 focus:outline-none p-2 rounded-lg hover:bg-slate-100">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#leistungen" class="block py-2 text-slate-700 font-medium hover:text-sky-600">Leistungen</a>
+            <a href="#standorte" class="block py-2 text-slate-700 font-medium hover:text-sky-600">Standorte</a>
+            <a href="#pflegekasse" class="block py-2 text-slate-700 font-medium hover:text-sky-600">Pflegekasse & §45b</a>
+            <a href="#ueber-uns" class="block py-2 text-slate-700 font-medium hover:text-sky-600">Über uns</a>
+            <a href="#kontakt" class="block py-2 text-slate-700 font-medium hover:text-sky-600">Kontakt</a>
+            <div class="pt-4 border-t border-slate-100 flex flex-col gap-3">
+                <a href="tel:08912345678" class="flex items-center gap-3 text-slate-800 font-bold">
+                    <i class="fa-solid fa-phone text-sky-600"></i> 089 / 123 456 78
+                </a>
+                <a href="#kontakt" class="text-center bg-sunshine-400 hover:bg-sunshine-500 text-slate-900 font-semibold py-3 rounded-xl shadow">
+                    Kostenlose Beratung anfordern
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-sunshine-50/30 pt-12 pb-20 md:pt-20 md:pb-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Left Text Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-sky-100/80 border border-sky-200 px-4 py-1.5 rounded-full text-sky-800 text-xs md:text-sm font-semibold">
+                        <i class="fa-solid fa-heart text-sky-600"></i> Mehr Lebensqualität im eigenen Zuhause
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        Herzliche Unterstützung und <span class="bg-gradient-to-r from-sky-600 to-sky-700 bg-clip-text text-transparent">verlässliche Hilfe</span> in Ihrem Alltag
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal">
+                        Wir bringen Licht, Freude und Entlastung in Ihr Leben. Professionelle Alltagsbegleitung, Betreuung und haushaltsnahe Dienstleistungen – direkt abrechenbar mit allen Pflegekassen.
+                    </p>
+                    <div class="bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-100 rounded-2xl p-4">
+                        <div class="flex items-start gap-3">
+                            
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-slate-900">
+                                    Standort automatisch erkennen
+                                </h3>
+
+                                <p class="text-sm text-slate-600 mt-1">
+                                    Finden Sie passende Ansprechpartner und Angebote in Ihrer Nähe.
+                                </p>
+
+                                <button
+                                    onclick="detectLocation()"
+                                    class="mt-3 bg-sky-600 hover:bg-sky-700 text-white px-5 py-3 rounded-xl font-semibold transition">
+                                    <i class="fa-solid fa-location-crosshairs mr-2"></i>
+                                    Meinen Standort verwenden
+                                </button>
+
+                                <p id="geo-result"
+                                    class="hidden mt-3 text-sm font-medium text-sky-700">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function detectLocation() {
+                            const result = document.getElementById("geo-result");
+
+                            if (!navigator.geolocation) {
+                                result.classList.remove("hidden");
+                                result.innerHTML =
+                                    '<i class="fa-solid fa-circle-exclamation mr-1"></i> Geolokalisierung wird von Ihrem Browser nicht unterstützt.';
+                                return;
+                            }
+
+                            navigator.geolocation.getCurrentPosition(
+                                async (position) => {
+                                    const lat = position.coords.latitude;
+                                    const lon = position.coords.longitude;
+
+                                    result.classList.remove("hidden");
+                                    result.innerHTML =
+                                        `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Standort wird ermittelt...`;
+
+                                    try {
+                                        const response = await fetch(
+                                            `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+                                        );
+
+                                        const data = await response.json();
+
+                                        const city =
+                                            data.address.city ||
+                                            data.address.town ||
+                                            data.address.village ||
+                                            "Unbekannt";
+
+                                        const state =
+                                            data.address.state || "Unbekannt";
+
+                                        result.innerHTML = `
+                                            <i class="fa-solid fa-check-circle mr-1"></i>
+                                            Standort erkannt:
+                                            <strong>${city}</strong>,
+                                            ${state}
+                                        `;
+
+                                        document.getElementById(
+                                            "selected-city-name"
+                                        ).textContent = city;
+
+                                    } catch (error) {
+                                        result.innerHTML =
+                                            '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Standort konnte nicht ermittelt werden.';
+                                    }
+                                },
+                                () => {
+                                    result.classList.remove("hidden");
+                                    result.innerHTML =
+                                        '<i class="fa-solid fa-circle-xmark mr-1"></i> Zugriff auf Standort wurde verweigert.';
+                                }
+                            );
+                        }
+                    </script>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+
+                        <!-- Bundesland -->
+                        <select id="hero-state-select"
+                            onchange="updateRegions()"
+                            class="bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="">Bundesland wählen</option>
+                            <option value="bayern">Bayern</option>
+                            <option value="badenwuerttemberg">Baden-Württemberg</option>
+                        </select>
+
+                        <!-- Region -->
+                        <select id="hero-region-select"
+                            onchange="updateCities()"
+                            class="bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="">Region wählen</option>
+                        </select>
+
+                        <!-- Stadt -->
+                        <select id="hero-location-select"
+                            class="bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="">Stadt wählen</option>
+                        </select>
+                    </div>
+                     <button onclick="updateLocationFromHero()" class="bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-3 rounded-xl shadow transition-all flex items-center justify-center gap-2">
+                        <span>search</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                    <script>
+                        const locations = {
+                            bayern: {
+                                oberbayern: [
+                                    { value: "muenchen", text: "München" },
+                                    { value: "ingolstadt", text: "Ingolstadt" },
+                                    { value: "holzkirchen", text: "Holzkirchen" },
+                                    { value: "rosenheim", text: "Rosenheim" }
+                                ],
+                                schwaben: [
+                                    { value: "memmingen", text: "Memmingen" },
+                                    { value: "kempten", text: "Kempten" },
+                                    { value: "augsburg", text: "Augsburg" }
+                                ],
+                                niederbayern: [
+                                    { value: "landshut", text: "Landshut" },
+                                    { value: "passau", text: "Passau" }
+                                ],
+                                oberpfalz: [
+                                    { value: "regensburg", text: "Regensburg" },
+                                    { value: "amberg", text: "Amberg" }
+                                ]
+                            },
+
+                            badenwuerttemberg: {
+                                stuttgart: [
+                                    { value: "stuttgart", text: "Stuttgart" },
+                                    { value: "esslingen", text: "Esslingen" }
+                                ],
+                                karlsruhe: [
+                                    { value: "karlsruhe", text: "Karlsruhe" },
+                                    { value: "rastatt", text: "Rastatt" }
+                                ]
+                            }
+                        };
+
+                        function updateRegions() {
+                            const state = document.getElementById("hero-state-select").value;
+                            const regionSelect = document.getElementById("hero-region-select");
+                            const citySelect = document.getElementById("hero-location-select");
+
+                            regionSelect.innerHTML =
+                                '<option value="">Region wählen</option>';
+                            citySelect.innerHTML =
+                                '<option value="">Stadt wählen</option>';
+
+                            if (!state || !locations[state]) return;
+
+                            Object.keys(locations[state]).forEach(region => {
+                                const option = document.createElement("option");
+                                option.value = region;
+                                option.textContent = region
+                                    .replace(/([A-Z])/g, ' $1')
+                                    .replace(/^./, c => c.toUpperCase());
+                                regionSelect.appendChild(option);
+                            });
+                        }
+
+                        function updateCities() {
+                            const state = document.getElementById("hero-state-select").value;
+                            const region = document.getElementById("hero-region-select").value;
+                            const citySelect = document.getElementById("hero-location-select");
+
+                            citySelect.innerHTML =
+                                '<option value="">Stadt wählen</option>';
+
+                            if (!locations[state]?.[region]) return;
+
+                            locations[state][region].forEach(city => {
+                                const option = document.createElement("option");
+                                option.value = city.value;
+                                option.textContent = city.text;
+                                citySelect.appendChild(option);
+                            });
+                        }
+                    </script>
+
+                    <!-- Trust badges -->
+                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-slate-500 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-heart text-sky-600 text-lg"></i>
+                            <span>Zertifiziert & Zuverlässig</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-file-invoice-dollar text-sunshine-600 text-lg"></i>
+                            <span>Kostenübernahme durch Pflegekasse</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Column -->
+                <div class="lg:col-span-5 relative">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center max-w-3xl mx-auto mb-10 space-y-4">
+                            <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Ergebnisse</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-8 h-[65vH] overflow-y-auto">
+                            
+                            <!-- München -->
+                            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full">Zentrale</span>
+                                        <i class="fa-solid fa-location-dot text-sky-600 text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-slate-900 mb-2">München</h3>
+                                    <p class="text-slate-500 text-sm mb-4">Für München Stadt & die umliegenden Landkreise.</p>
+                                    <div class="space-y-2 text-xs text-slate-600 mb-6">
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sky-600"></i> 089 / 123 456 78</div>
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky-600"></i> muenchen@licht-und-freude.de</div>
+                                    </div>
+                                </div>
+                                <button onclick="selectCity('München')" class="w-full bg-slate-100 hover:bg-sky-600 hover:text-white text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                                    Standort wählen
+                                </button>
+                            </div>
+
+                            <!-- Memmingen -->
+                            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="bg-sunshine-100 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Team Allgäu</span>
+                                        <i class="fa-solid fa-location-dot text-sunshine-500 text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-slate-900 mb-2">Memmingen</h3>
+                                    <p class="text-slate-500 text-sm mb-4">Für Memmingen und das Unterallgäu.</p>
+                                    <div class="space-y-2 text-xs text-slate-600 mb-6">
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sunshine-600"></i> 08331 / 987 654</div>
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sunshine-600"></i> memmingen@licht-und-freude.de</div>
+                                    </div>
+                                </div>
+                                <button onclick="selectCity('Memmingen')" class="w-full bg-slate-100 hover:bg-sunshine-400 hover:text-slate-900 text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                                    Standort wählen
+                                </button>
+                            </div>
+
+                            <!-- Ingolstadt -->
+                            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full">Team Region</span>
+                                        <i class="fa-solid fa-location-dot text-sky-600 text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-slate-900 mb-2">Ingolstadt</h3>
+                                    <p class="text-slate-500 text-sm mb-4">Für Ingolstadt und Eichstätt / Neuburg.</p>
+                                    <div class="space-y-2 text-xs text-slate-600 mb-6">
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sky-600"></i> 0841 / 456 789</div>
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky-600"></i> ingolstadt@licht-und-freude.de</div>
+                                    </div>
+                                </div>
+                                <button onclick="selectCity('Ingolstadt')" class="w-full bg-slate-100 hover:bg-sky-600 hover:text-white text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                                    Standort wählen
+                                </button>
+                            </div>
+
+                            <!-- Holzkirchen -->
+                            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="bg-sunshine-100 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Team Oberland</span>
+                                        <i class="fa-solid fa-location-dot text-sunshine-500 text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-slate-900 mb-2">Holzkirchen</h3>
+                                    <p class="text-slate-500 text-sm mb-4">Für Holzkirchen, Miesbach & Bad Tölz.</p>
+                                    <div class="space-y-2 text-xs text-slate-600 mb-6">
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sunshine-600"></i> 08024 / 321 098</div>
+                                        <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sunshine-600"></i> holzkirchen@licht-und-freude.de</div>
+                                    </div>
+                                </div>
+                                <button onclick="selectCity('Holzkirchen')" class="w-full bg-slate-100 hover:bg-sunshine-400 hover:text-slate-900 text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                                    Standort wählen
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <!-- Weitere Städte Hinweis -->
+                        <div class="mt-12 bg-white border border-slate-200 rounded-3xl p-8 text-center max-w-3xl mx-auto shadow-sm">
+                            <h4 class="text-lg font-bold text-slate-900 mb-2">Ihre Stadt ist nicht dabei?</h4>
+                            <p class="text-slate-600 text-sm mb-6">Wir expandieren kontinuierlich in weitere bayerische Städte und Regionen. Fragen Sie einfach unverbindlich bei uns an!</p>
+                            <a href="#kontakt" class="inline-block bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow text-sm">
+                                Verfügbarkeit in Ihrer Gemeinde prüfen
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Standorte Schnellübersicht Banner -->
+    <section class="bg-sky-700 text-white py-8 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div class="text-center lg:text-left">
+                <h3 class="text-xl font-bold flex items-center justify-center lg:justify-start gap-2">
+                    <i class="fa-solid fa-map-location-dot text-sunshine-400"></i> Aktuelle Standorte von 'Licht und Freude'
+                </h3>
+                <p class="text-sky-100 text-sm mt-1">Wir sind in ganz Bayern nah bei Ihnen – wählen Sie Ihren Ort aus:</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="setCity('München')" class="city-btn bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-xl text-sm font-semibold transition-all">📍 München</button>
+                <button onclick="setCity('Memmingen')" class="city-btn bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-xl text-sm font-semibold transition-all">📍 Memmingen</button>
+                <button onclick="setCity('Ingolstadt')" class="city-btn bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-xl text-sm font-semibold transition-all">📍 Ingolstadt</button>
+                <button onclick="setCity('Holzkirchen')" class="city-btn bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-xl text-sm font-semibold transition-all">📍 Holzkirchen</button>
+                <button onclick="setCity('Weitere Städte')" class="city-btn bg-sunshine-400 text-slate-900 px-4 py-2 rounded-xl text-sm font-bold shadow transition-all">+ Weitere Regionen</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leistungen Sektion -->
+    <section id="leistungen" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Unser Leistungsangebot</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                    Umfassende Hilfe für ein selbstbestimmtes Leben
+                </h2>
+                <p class="text-slate-600 text-base md:text-lg">
+                    Von persönlicher Betreuung bis hin zur professionellen Haushaltsführung – wir unterstützen Sie individuell nach Ihren Bedürfnissen.
+                </p>
+            </div>
+
+            <!-- Grid of Services -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Card 1: Alltagsbegleitung & Betreuung -->
+                <div class="bg-slate-50 hover:bg-sky-50/50 border border-slate-200 rounded-3xl p-6 transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-6 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-people-arrows"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Alltagsbegleitung & Betreuung</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Gemeinsame Spaziergänge, anregende Gesellschaft, Vorlesen, Gedächtnistraining und herzliche Ansprache für mehr Lebensfreude.
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-600"></i> Spaziergänge & frische Luft</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-600"></i> Gesellschaft & Gespräche</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-600"></i> Begleitung bei Arztbesuchen</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Haushaltsnahe Dienstleistungen -->
+                <div class="bg-slate-50 hover:bg-sunshine-50/50 border border-slate-200 rounded-3xl p-6 transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-sunshine-100 text-sunshine-600 flex items-center justify-center text-2xl mb-6 group-hover:bg-sunshine-500 group-hover:text-slate-900 transition-colors">
+                            <i class="fa-solid fa-house-chimney"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Haushaltsnahe Dienste</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Sauberkeit und Wohlbefinden in Ihrem Zuhause. Wir halten Ihre Wohnung in Schuss und unterstützen beim täglichen Haushalt.
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sunshine-600"></i> Regelmäßige Wohnungsreinigung</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sunshine-600"></i> Fensterputzen & Gardinenservice</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sunshine-600"></i> Wäscheservice & Bügeln</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Behörden & Formulare -->
+                <div class="bg-slate-50 hover:bg-sky-50/50 border border-slate-200 rounded-3xl p-6 transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-6 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Behörden & Formulare</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Schluss mit dem Papierkram. Wir unterstützen beim Sortieren von Post, Ausfüllen von Anträgen und dem Kontakt mit Ämtern.
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-600"></i> Postsortierung & Ablage</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-600"></i> Unterstützung bei Anträgen</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sky-600"></i> Begleitung zu Behörden</li>
+                    </ul>
+                </div>
+
+                <!-- Card 4: Entlastungsleistungen Pflegegrad -->
+                <div class="bg-slate-50 hover:bg-sunshine-50/50 border border-slate-200 rounded-3xl p-6 transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-sunshine-100 text-sunshine-600 flex items-center justify-center text-2xl mb-6 group-hover:bg-sunshine-500 group-hover:text-slate-900 transition-colors">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Pflegekassen-Leistungen</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            Guthaben nutzen! Ab Pflegegrad 1 haben Sie Anspruch auf 125 € monatlichen Entlastungsbetrag. Wir rechnen direkt ab.
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-200/60 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sunshine-600"></i> 125 € Entlastungsbetrag (§ 45b)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sunshine-600"></i> Verhinderungspflege</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sunshine-600"></i> Kostenlose Abrechnungsservice</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pflegekassen Hinweis Sektion -->
+    <section id="pflegekasse" class="py-16 bg-gradient-to-r from-sky-600 to-sky-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-1 rounded-full text-sunshine-300 text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-circle-info"></i> Finanzielle Entlastung für Sie
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                        Wussten Sie schon? Ab Pflegegrad 1 stehen Ihnen monatlich <span class="text-sunshine-300">125,00 €</span> zu!
+                    </h2>
+                    <p class="text-sky-100 text-base md:text-lg leading-relaxed">
+                        Dieser sogenannte Entlastungsbetrag (§ 45b SGB XI) ist zweckgebunden für qualifizierte haushaltsnahe Dienstleistungen und Alltagsbegleitung. Er verfällt nicht monatlich sofort, sondern kann angespart werden. Wir übernehmen die unkomplizierte Direktabrechnung mit Ihrer Pflegekasse.
+                    </p>
+                </div>
+                <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4 justify-center">
+                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 text-center">
+                        <span class="block text-3xl font-extrabold text-sunshine-300 mb-1">125 € / Monat</span>
+                        <span class="text-xs text-sky-100">Gesetzlicher Entlastungsbetrag ab Pflegegrad 1</span>
+                    </div>
+                    <a href="#kontakt" class="bg-sunshine-400 hover:bg-sunshine-500 text-slate-900 font-bold px-6 py-4 rounded-xl shadow-lg text-center transition-all">
+                        Kostenlose Beratung anfordern
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Standorte Sektion -->
+    <section id="standorte" class="py-20 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Unsere Präsenz</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                    Standorte von 'Alltagsbegleitung Licht und Freude'
+                </h2>
+                <p class="text-slate-600 text-base md:text-lg">
+                    Wir sind in mehreren Städten und Regionen in Bayern mit herzlichen Teams vor Ort vertreten.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- München -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full">Zentrale</span>
+                            <i class="fa-solid fa-location-dot text-sky-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">München</h3>
+                        <p class="text-slate-500 text-sm mb-4">Für München Stadt & die umliegenden Landkreise.</p>
+                        <div class="space-y-2 text-xs text-slate-600 mb-6">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sky-600"></i> 089 / 123 456 78</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky-600"></i> muenchen@licht-und-freude.de</div>
+                        </div>
+                    </div>
+                    <button onclick="selectCity('München')" class="w-full bg-slate-100 hover:bg-sky-600 hover:text-white text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                        Standort wählen
+                    </button>
+                </div>
+
+                <!-- Memmingen -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-sunshine-100 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Team Allgäu</span>
+                            <i class="fa-solid fa-location-dot text-sunshine-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Memmingen</h3>
+                        <p class="text-slate-500 text-sm mb-4">Für Memmingen und das Unterallgäu.</p>
+                        <div class="space-y-2 text-xs text-slate-600 mb-6">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sunshine-600"></i> 08331 / 987 654</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sunshine-600"></i> memmingen@licht-und-freude.de</div>
+                        </div>
+                    </div>
+                    <button onclick="selectCity('Memmingen')" class="w-full bg-slate-100 hover:bg-sunshine-400 hover:text-slate-900 text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                        Standort wählen
+                    </button>
+                </div>
+
+                <!-- Ingolstadt -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full">Team Region</span>
+                            <i class="fa-solid fa-location-dot text-sky-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Ingolstadt</h3>
+                        <p class="text-slate-500 text-sm mb-4">Für Ingolstadt und Eichstätt / Neuburg.</p>
+                        <div class="space-y-2 text-xs text-slate-600 mb-6">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sky-600"></i> 0841 / 456 789</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky-600"></i> ingolstadt@licht-und-freude.de</div>
+                        </div>
+                    </div>
+                    <button onclick="selectCity('Ingolstadt')" class="w-full bg-slate-100 hover:bg-sky-600 hover:text-white text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                        Standort wählen
+                    </button>
+                </div>
+
+                <!-- Holzkirchen -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-sunshine-100 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Team Oberland</span>
+                            <i class="fa-solid fa-location-dot text-sunshine-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">Holzkirchen</h3>
+                        <p class="text-slate-500 text-sm mb-4">Für Holzkirchen, Miesbach & Bad Tölz.</p>
+                        <div class="space-y-2 text-xs text-slate-600 mb-6">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sunshine-600"></i> 08024 / 321 098</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sunshine-600"></i> holzkirchen@licht-und-freude.de</div>
+                        </div>
+                    </div>
+                    <button onclick="selectCity('Holzkirchen')" class="w-full bg-slate-100 hover:bg-sunshine-400 hover:text-slate-900 text-slate-800 font-semibold py-2.5 rounded-xl transition-colors text-sm">
+                        Standort wählen
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Weitere Städte Hinweis -->
+            <div class="mt-12 bg-white border border-slate-200 rounded-3xl p-8 text-center max-w-3xl mx-auto shadow-sm">
+                <h4 class="text-lg font-bold text-slate-900 mb-2">Ihre Stadt ist nicht dabei?</h4>
+                <p class="text-slate-600 text-sm mb-6">Wir expandieren kontinuierlich in weitere bayerische Städte und Regionen. Fragen Sie einfach unverbindlich bei uns an!</p>
+                <a href="#kontakt" class="inline-block bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow text-sm">
+                    Verfügbarkeit in Ihrer Gemeinde prüfen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Über uns & Philosophie -->
+    <section id="ueber-uns" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="bg-sunshine-100 text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Über uns</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+                        Mit Herz, Respekt und Zuverlässigkeit an Ihrer Seite
+                    </h2>
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Der Name **Alltagsbegleitung Licht und Freude** ist für uns Programm. Wir wissen, wie wertvoll es ist, im Alter oder bei körperlichen Einschränkungen selbstbestimmt in den eigenen vier Wänden zu leben. Unsere geschulten Begleiterinnen und Begleiter hören zu, packen im Haushalt an und schenken Ihnen wertvolle Gesellschaft.
+                    </p>
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Empathisch & Menschlich</h4>
+                                <p class="text-xs text-slate-500">Wir schätzen den persönlichen Kontakt und bauen vertrauensvolle Beziehungen auf.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-sunshine-100 text-sunshine-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Geprüfte Qualität</h4>
+                                <p class="text-xs text-slate-500">Alle Mitarbeitenden sind sorgfältig ausgewählt, geschult und sozialversicherungspflichtig angestellt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-6">
+                    <div class="bg-gradient-to-tr from-sky-50 to-sunshine-50 p-8 rounded-3xl border border-slate-200 relative">
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-sunshine-400/20 rounded-full blur-xl"></div>
+                        <blockquote class="space-y-4">
+                            <p class="text-slate-700 italic font-medium text-lg">
+                                „Unser Ziel ist es nicht nur, Aufgaben im Haushalt zu erledigen, sondern jedem Kunden ein Lächeln ins Gesicht zu zaubern und Licht in den Tag zu bringen.“
+                            </p>
+                            <footer class="flex items-center gap-3 pt-4 border-t border-slate-200">
+                                <div class="w-12 h-12 rounded-full bg-sky-600 text-white font-bold flex items-center justify-center">
+                                    LF
+                                </div>
+                                <div>
+                                    <cite class="not-italic font-bold text-slate-900 block">Teamleitung Licht & Freude</cite>
+                                    <span class="text-xs text-slate-500">Zentralstandort München</span>
+                                </div>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt & Beratung Sektion -->
+    <section id="kontakt" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-16 space-y-4">
+                <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Kostenlose Beratung</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+                    Nehmen Sie Kontakt mit uns auf
+                </h2>
+                <p class="text-slate-600 text-base md:text-lg">
+                    Haben Sie Fragen zur Alltagsbegleitung oder zur Abrechnung mit der Pflegekasse? Wir beraten Sie gern unverbindlich.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 bg-white p-8 rounded-3xl shadow-lg border border-slate-200">
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Ihr Name *</label>
+                                <input type="text" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm" placeholder="z.B. Maria Huber">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Telefonnummer *</label>
+                                <input type="tel" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm" placeholder="z.B. 089 1234567">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Gewünschter Standort *</label>
+                                <select id="contact-city-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
+                                    <option value="muenchen">München</option>
+                                    <option value="memmingen">Memmingen</option>
+                                    <option value="ingolstadt">Ingolstadt</option>
+                                    <option value="holzkirchen">Holzkirchen</option>
+                                    <option value="weitere">Weitere Region</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Pflegegrad vorhanden?</label>
+                                <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm">
+                                    <option>Ja, Pflegegrad 1-5</option>
+                                    <option>Noch kein Pflegegrad</option>
+                                    <option>Privatzahlung / Haushaltsnah</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Ihre Nachricht oder Wünsche</label>
+                            <textarea rows="4" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm" placeholder="Wie können wir Ihnen oder Ihren Angehörigen helfen?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-sunshine-400 to-sunshine-500 hover:from-sunshine-500 hover:to-sunshine-600 text-slate-900 font-bold py-4 rounded-xl shadow-md transition-all text-base flex items-center justify-center gap-2">
+                            <span>Kostenlose Beratung anfragen</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <!-- Success Message Box (Hidden by default) -->
+                    <div id="success-box" class="hidden mt-6 bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-2xl text-center">
+                        <i class="fa-solid fa-circle-check text-2xl text-emerald-600 mb-2"></i>
+                        <h4 class="font-bold">Vielen Dank für Ihre Anfrage!</h4>
+                        <p class="text-xs mt-1">Wir haben Ihre Nachricht erhalten und melden uns zeitnah für eine persönliche Beratung bei Ihnen.</p>
+                    </div>
+                </div>
+
+                <!-- Info Box -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-200 space-y-6">
+                        <h3 class="text-xl font-bold text-slate-900">Direkter Kontakt</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 uppercase font-bold">Telefonische Hotline</span>
+                                    <a href="tel:08912345678" class="text-slate-900 font-bold hover:text-sky-600">089 / 123 456 78</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-sunshine-100 text-sunshine-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 uppercase font-bold">E-Mail Adresse</span>
+                                    <a href="mailto:kontakt@licht-und-freude.de" class="text-slate-900 font-bold hover:text-sky-600">kontakt@licht-und-freude.de</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-slate-400 uppercase font-bold">Bürozeiten</span>
+                                    <span class="text-slate-900 font-bold">Mo – Fr: 08:30 – 17:00 Uhr</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-100 pt-6">
+                            <h4 class="font-bold text-slate-900 mb-2 text-sm">Zertifiziert nach § 45b SGB XI</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Unsere Leistungen sind von den Landesbehörden anerkannt. Sie können den Entlastungsbetrag problemlos über uns abrechnen lassen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-sunshine-400 text-slate-900 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <span class="text-white font-bold text-lg">Licht und Freude</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Ihre herzliche Alltagsbegleitung und verlässliche Hilfe für haushaltsnahe Dienstleistungen in Bayern.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Standorte</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#standorte" class="hover:text-white transition-colors">München & Umgebung</a></li>
+                        <li><a href="#standorte" class="hover:text-white transition-colors">Memmingen & Allgäu</a></li>
+                        <li><a href="#standorte" class="hover:text-white transition-colors">Ingolstadt & Region</a></li>
+                        <li><a href="#standorte" class="hover:text-white transition-colors">Holzkirchen & Miesbach</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Leistungen</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#leistungen" class="hover:text-white transition-colors">Alltagsbegleitung & Betreuung</a></li>
+                        <li><a href="#leistungen" class="hover:text-white transition-colors">Haushaltsnahe Dienstleistungen</a></li>
+                        <li><a href="#leistungen" class="hover:text-white transition-colors">Behörden & Formulare</a></li>
+                        <li><a href="#leistungen" class="hover:text-white transition-colors">Pflegekassen-Abrechnung</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Rechtliches</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-white transition-colors">Impressum</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Datenschutz</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Zertifizierungen</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs">
+                <p>&copy; 2026 Alltagsbegleitung Licht und Freude. Alle Rechte vorbehalten.</p>
+                <p class="mt-2 sm:mt-0 text-slate-500">Mit Liebe gestaltet für ein würdevolles Leben zu Hause.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Location Selector in Hero
+        function updateLocationFromHero() {
+            const select = document.getElementById('hero-location-select');
+            const selectedText = select.options[select.selectedIndex].text.split('&')[0].trim();
+            
+            const badge = document.getElementById('current-location-badge');
+            const feedback = document.getElementById('hero-location-feedback');
+            const cityNameSpan = document.getElementById('selected-city-name');
+
+            badge.textContent = selectedText;
+            cityNameSpan.textContent = selectedText;
+            feedback.classList.remove('hidden');
+
+            // Also update contact form dropdown
+            const contactSelect = document.getElementById('contact-city-select');
+            for(let i=0; i<contactSelect.options.length; i++) {
+                if(contactSelect.options[i].text.toLowerCase().includes(selectedText.toLowerCase())) {
+                    contactSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // Quick City Button Click
+        function setCity(cityName) {
+            const badge = document.getElementById('current-location-badge');
+            badge.textContent = cityName;
+
+            // Scroll smoothly to contact or show notification
+            const contactSection = document.getElementById('kontakt');
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+
+            const contactSelect = document.getElementById('contact-city-select');
+            for(let i=0; i<contactSelect.options.length; i++) {
+                if(contactSelect.options[i].text.toLowerCase().includes(cityName.toLowerCase())) {
+                    contactSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        function selectCity(cityName) {
+            setCity(cityName);
+        }
+
+        // Handle Contact Form Submission
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const successBox = document.getElementById('success-box');
+            successBox.classList.remove('hidden');
+            successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>

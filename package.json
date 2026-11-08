@@ -1,0 +1,18 @@
+{
+  "name": "licht-und-freude",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express server for the Licht und Freude website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "mongoose": "^9.12.0",
+    "nodemailer": "^10.3.1"
+  }
+}

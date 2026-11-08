@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome, <%= company.name %></title>
+  </head>
+  <body style="margin:0;padding:24px;font-family:Arial,sans-serif;color:#1f2937;line-height:1.5">
+    <main style="max-width:600px;margin:0 auto">
+      <h1 style="color:#0369a1">Welcome, <%= company.name %>!</h1>
+      <p>Your company has been added successfully. Here is a summary of the information on file:</p>
+      <ul>
+        <li><strong>Phone:</strong> <%= company.phone %></li>
+        <li><strong>Email:</strong> <%= company.email %></li>
+        <li><strong>Description:</strong> <%= company.description %></li>
+        <li><strong>Location:</strong> <%= company.location.coordinates[1] %>, <%= company.location.coordinates[0] %></li>
+      </ul>
+      <p>If any of these details need to be changed, please contact us.</p>
+    </main>
+  </body>
+</html>
