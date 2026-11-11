@@ -6,6 +6,14 @@ services:
       - .env
     environment:
       NODE_ENV: production
-      PORT: 3005
+      PORT: ${PORT:-3005}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_SECURE: ${SMTP_SECURE}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      MAIL_FROM: ${MAIL_FROM}
+      SERVER_URL: ${SERVER_URL}
+      MONGODB_URI: ${MONGODB_URI}
     ports:
       - "${PORT:-3005}:3005"
