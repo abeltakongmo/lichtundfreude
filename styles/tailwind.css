@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-w-[320px] bg-sky-50 font-sans text-slate-800 antialiased;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .reveal {
+    @apply translate-y-4 opacity-0 transition duration-700 ease-out;
+  }
+
+  .reveal.is-visible {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .company-grid {
+    @apply grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .company-card {
+    @apply flex flex-col rounded-3xl border border-sky-100 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl;
+  }
+
+  .company-mark {
+    @apply mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-sky-100 to-amber-100 text-xl text-sky-700;
+  }
+
+  .company-card h3 {
+    @apply mb-2 font-semibold text-sky-950;
+  }
+
+  .company-card p {
+    @apply text-sm leading-6 text-slate-600;
+  }
+
+  .company-location {
+    @apply mb-3 flex flex-wrap gap-2;
+  }
+
+  .company-location span {
+    @apply rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-800;
+  }
+
+  .company-location .company-distance {
+    @apply bg-amber-100 text-amber-900;
+  }
+
+  .company-links {
+    @apply mt-auto flex flex-wrap gap-x-4 gap-y-2 pt-5;
+  }
+
+  .company-links a {
+    @apply text-sm font-semibold text-sky-700 hover:text-sky-900 hover:underline;
+  }
+
+  .company-status {
+    @apply min-h-6 text-center text-sm text-slate-500;
+  }
+
+  .company-status.error {
+    @apply text-rose-600;
+  }
+
+  .empty-state {
+    @apply col-span-full rounded-3xl border border-dashed border-sky-200 bg-white/80 p-10 text-center text-slate-600;
+  }
+
+  .notice {
+    @apply bg-emerald-50 text-emerald-800;
+  }
+
+  .notice.error {
+    @apply bg-rose-50 text-rose-800;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    @apply translate-y-0 opacity-100 transition-none;
+  }
+}

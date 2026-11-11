@@ -30,7 +30,7 @@ function getTransporter() {
   return transporter;
 }
 
-async function sendMail({ to, subject, text, html, from } = {}) {
+async function sendMail({ to, subject, text, html, from, replyTo } = {}) {
   if (!to || !subject || (!text && !html)) {
     throw new Error("Provide a recipient, subject, and text or HTML message.");
   }
@@ -41,6 +41,7 @@ async function sendMail({ to, subject, text, html, from } = {}) {
     subject,
     text,
     html,
+    replyTo,
   });
 }
 

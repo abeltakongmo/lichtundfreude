@@ -24,6 +24,22 @@ const companySchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    region: {
+      type: String,
+      trim: true,
+      maxlength: 120,
+      default: "",
+    },
+    city: {
+      type: String,
+      trim: true,
+      maxlength: 120,
+      default: "",
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
     location: {
       type: {
         type: String,

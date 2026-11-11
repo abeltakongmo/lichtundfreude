@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-Mail-Adresse bestätigen</title>
+  </head>
+  <body style="margin:0;padding:24px;background:#f8fafc;font-family:Arial,sans-serif;color:#1e293b;line-height:1.6">
+    <main style="max-width:600px;margin:0 auto;padding:32px;background:#fff;border:1px solid #e2e8f0;border-radius:16px">
+      <p style="margin:0 0 8px;color:#0369a1;font-size:13px;font-weight:bold;text-transform:uppercase;letter-spacing:1px">Licht und Freude</p>
+      <h1 style="margin:0 0 16px;font-size:24px">Bitte bestätigen Sie Ihre E-Mail-Adresse</h1>
+      <p>Hallo <%= name %>,</p>
+      <p>bestätigen Sie Ihre E-Mail-Adresse, um Ihre Registrierung abzuschließen.</p>
+      <p style="margin:28px 0">
+        <a href="<%= verificationUrl %>" style="display:inline-block;padding:14px 22px;background:#facc15;color:#1e293b;text-decoration:none;font-weight:bold;border-radius:10px">E-Mail-Adresse bestätigen</a>
+      </p>
+      <p style="font-size:13px;color:#64748b">Der Link ist 24 Stunden gültig. Falls Sie kein Konto erstellt haben, können Sie diese E-Mail ignorieren.</p>
+    </main>
+  </body>
+</html>

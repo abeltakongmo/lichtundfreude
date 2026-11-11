@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>
+      <% if (mode === "signup") { %>Konto erstellen<% } else if (mode === "login") { %>Anmelden<% } else { %>E-Mail bestätigen<% } %>
+      | Licht und Freude
+    </title>
+    <style>
+      :root { color-scheme: light; font-family: Arial, sans-serif; color: #1e293b; background: #f8fafc; }
+      * { box-sizing: border-box; }
+      body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; }
+      main { width: min(100%, 440px); padding: 36px; border: 1px solid #e2e8f0; border-radius: 20px; background: #fff; box-shadow: 0 15px 40px #0f172a12; }
+      a { color: #0369a1; }
+      h1 { margin: 0 0 10px; font-size: 28px; }
+      p { line-height: 1.6; }
+      label { display: block; margin: 18px 0 7px; font-size: 14px; font-weight: 700; }
+      input { width: 100%; padding: 13px 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; }
+      button { width: 100%; margin-top: 24px; padding: 14px; border: 0; border-radius: 10px; background: #facc15; color: #1e293b; font-size: 16px; font-weight: 700; cursor: pointer; }
+      button:disabled { cursor: wait; opacity: .7; }
+      #form-message { margin-top: 18px; padding: 12px; border-radius: 10px; background: #f1f5f9; }
+      #form-message:empty { display: none; }
+      #form-message[data-error="true"] { color: #991b1b; background: #fef2f2; }
+      .brand { display: inline-block; margin-bottom: 24px; font-weight: 700; text-decoration: none; }
+      .muted { color: #64748b; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="brand" href="/">Licht und Freude</a>
+
+      <% if (mode === "signup") { %>
+        <h1>Konto erstellen</h1>
+        <p class="muted">Erstellen Sie ein Konto. Zur Anmeldung bestätigen Sie zuerst Ihre E-Mail-Adresse.</p>
+        <form data-auth-form="signup">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" maxlength="120" autocomplete="name" required>
+          <label for="email">E-Mail-Adresse</label>
+          <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required>
+          <label for="password">Passwort</label>
+          <input id="password" name="password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
+          <button type="submit">Registrieren</button>
+        </form>
+        <p class="muted">Bereits registriert? <a href="/login">Anmelden</a></p>
+      <% } else if (mode === "login") { %>
+        <h1>Anmelden</h1>
+        <p class="muted">Melden Sie sich mit Ihrer bestätigten E-Mail-Adresse an.</p>
+        <form data-auth-form="login">
+          <label for="email">E-Mail-Adresse</label>
+          <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required>
+          <label for="password">Passwort</label>
+          <input id="password" name="password" type="password" maxlength="128" autocomplete="current-password" required>
+          <button type="submit">Anmelden</button>
+        </form>
+        <p class="muted">Noch kein Konto? <a href="/signup">Registrieren</a></p>
+      <% } else { %>
+        <h1>E-Mail-Adresse bestätigen</h1>
+        <p class="muted">Bestätigen Sie Ihre E-Mail-Adresse, um die Registrierung abzuschließen.</p>
+        <form data-auth-form="verify">
+          <input type="hidden" name="token" value="<%= token || '' %>">
+          <button type="submit" <%= token ? '' : 'disabled' %>>E-Mail-Adresse bestätigen</button>
+        </form>
+      <% } %>
+
+      <div id="form-message" role="status" aria-live="polite"></div>
+    </main>
+    <script>
+      const form = document.querySelector('[data-auth-form]');
+      const message = document.getElementById('form-message');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const button = form.querySelector('button');
+        button.disabled = true;
+        message.textContent = '';
+        message.dataset.error = 'false';
+
+        try {
+          const response = await fetch(`/auth/${form.dataset.authForm}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form)))
+          });
+          const text = await response.text();
+          let result;
+
+          try {
+            result = JSON.parse(text);
+          } catch {
+            throw new Error(`Ungültige Serverantwort (HTTP ${response.status}).`);
+          }
+
+          if (!response.ok) {
+            throw new Error(result.error || 'Die Anfrage ist fehlgeschlagen.');
+          }
+
+          if (form.dataset.authForm === 'login') {
+            window.location.assign('/');
+            return;
+          }
+
+          if (form.dataset.authForm === 'verify') {
+            message.textContent = result.message;
+            form.hidden = true;
+            window.history.replaceState({}, '', '/auth/verify');
+            return;
+          }
+
+          message.textContent = result.message;
+          form.reset();
+        } catch (error) {
+          message.textContent = error.message || 'Die Anfrage ist fehlgeschlagen.';
+          message.dataset.error = 'true';
+        } finally {
+          button.disabled = form.dataset.authForm === 'verify' && form.hidden;
+        }
+      });
+    </script>
+  </body>
+</html>

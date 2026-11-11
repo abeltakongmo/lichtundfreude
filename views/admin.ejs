@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Verwaltung | Licht und Freude</title>
+    <style>
+      :root { font-family: Arial, sans-serif; color: #1e293b; background: #f8fafc; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      header { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px max(24px, calc((100% - 1100px) / 2)); background: white; border-bottom: 1px solid #e2e8f0; }
+      header a, nav a { color: #0369a1; font-weight: 700; text-decoration: none; }
+      header button, button { border: 0; border-radius: 9px; padding: 11px 16px; background: #facc15; color: #1e293b; font-weight: 700; cursor: pointer; }
+      header button { background: #e2e8f0; }
+      main { width: min(100% - 32px, 1100px); margin: 36px auto; }
+      nav { display: flex; flex-wrap: wrap; gap: 18px; margin: 20px 0 28px; }
+      section, .panel { padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px; background: white; }
+      h1 { margin-top: 0; }
+      label { display: block; margin: 16px 0 7px; font-size: 14px; font-weight: 700; }
+      input, textarea, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 9px; font: inherit; }
+      textarea { min-height: 120px; resize: vertical; }
+      form button { margin-top: 20px; }
+      .muted { color: #64748b; line-height: 1.6; }
+      .message { margin: 16px 0; padding: 12px; border-radius: 9px; background: #f1f5f9; }
+      .message:empty { display: none; }
+      .error { color: #991b1b; background: #fef2f2; }
+      .consultation { margin: 16px 0; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; }
+      .consultation h2 { margin: 0; font-size: 18px; }
+      .consultation pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
+      .consultation-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+      .consultation-head select { width: auto; min-width: 190px; }
+      .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end; margin: 20px 0; }
+      .filters label { margin-top: 0; }
+      .filters button { min-height: 44px; margin: 0; }
+      .table-wrap { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; text-align: left; }
+      th, td { padding: 13px 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+      th { color: #475569; font-size: 13px; }
+      td a { color: #0369a1; }
+      .company-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+      .company-actions button { padding: 8px 10px; font-size: 13px; }
+      .company-actions .danger, dialog .danger { color: #fff; background: #b91c1c; }
+      .company-actions .secondary { background: #e2e8f0; }
+      .company-paused { opacity: .7; }
+      dialog { width: min(100% - 32px, 560px); max-height: 90vh; overflow-y: auto; padding: 26px; border: 1px solid #dbe3ee; border-radius: 20px; box-shadow: 0 24px 80px #0f172a40; }
+      dialog::backdrop { background: #0f172a80; backdrop-filter: blur(4px); }
+      dialog h2 { margin-top: 0; }
+      .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+      .modal-actions .secondary { background: #e2e8f0; }
+      .modal-actions button { margin: 0; }
+      @media (max-width: 600px) { header { padding: 16px; } main { margin-top: 22px; } section, .panel { padding: 18px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/">Licht und Freude – Verwaltung</a>
+      <div>
+        <span><%= admin.name %></span>
+        <button id="logout" type="button">Abmelden</button>
+      </div>
+    </header>
+    <main>
+      <nav aria-label="Verwaltung">
+        <a href="/admin">Übersicht</a>
+        <a href="/admin/companies">Unternehmen</a>
+        <a href="/admin/companies/new">Unternehmen hinzufügen</a>
+        <a href="/admin/consultations">Beratungsanfragen</a>
+      </nav>
+
+      <% if (page === "companies") { %>
+        <section>
+          <h1>Unternehmen</h1>
+          <p class="muted">Filtern Sie nach Name, Erstellungsdatum und einem Ort in der Nähe. Der Ortsfilter sucht Unternehmen im gewählten Umkreis anhand ihrer gespeicherten Koordinaten.</p>
+          <form id="company-filters" class="filters">
+            <div>
+              <label for="filter-name">Name</label>
+              <input id="filter-name" name="name" maxlength="120">
+            </div>
+            <div>
+              <label for="filter-from-date">Erstellt ab</label>
+              <input id="filter-from-date" name="fromDate" type="date">
+            </div>
+            <div>
+              <label for="filter-to-date">Erstellt bis</label>
+              <input id="filter-to-date" name="toDate" type="date">
+            </div>
+            <div>
+              <label for="filter-location">Ort / Adresse</label>
+              <input id="filter-location" name="location" maxlength="300" placeholder="z. B. München">
+            </div>
+            <div>
+              <label for="filter-radius">Umkreis</label>
+              <select id="filter-radius" name="radiusKm">
+                <option value="10">10 km</option>
+                <option value="25" selected>25 km</option>
+                <option value="50">50 km</option>
+                <option value="100">100 km</option>
+                <option value="200">200 km</option>
+              </select>
+            </div>
+            <button type="submit">Filtern</button>
+            <button id="clear-company-filters" type="button">Filter zurücksetzen</button>
+          </form>
+          <div class="message" id="company-list-message" role="status" aria-live="polite"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Hinzugefügt am</th><th>Standort</th><th>Status &amp; Aktionen</th></tr>
+              </thead>
+              <tbody id="companies-list"></tbody>
+            </table>
+          </div>
+        </section>
+      <% } else if (page === "company") { %>
+        <section>
+          <h1>Unternehmen hinzufügen</h1>
+          <p class="muted">Die eingegebene Adresse wird zur Koordinatensuche an OpenStreetMap Nominatim übermittelt. Gespeichert werden ausschließlich Längen- und Breitengrad, nicht die Adresse.</p>
+          <form id="company-form">
+            <label for="company-name">Unternehmensname</label>
+            <input id="company-name" name="name" maxlength="120" required>
+            <label for="company-phone">Telefon</label>
+            <input id="company-phone" name="phone" type="tel" maxlength="50" required>
+            <label for="company-email">E-Mail-Adresse</label>
+            <input id="company-email" name="email" type="email" maxlength="254" required>
+            <label for="company-description">Beschreibung</label>
+            <textarea id="company-description" name="description" maxlength="2000" required></textarea>
+            <label for="company-region">Region</label>
+            <input id="company-region" name="region" maxlength="120" placeholder="z. B. Bayern" required>
+            <label for="company-city">Stadt</label>
+            <input id="company-city" name="city" maxlength="120" placeholder="z. B. München" required>
+            <label for="company-address">Adresse für die Koordinatensuche</label>
+            <input id="company-address" name="address" maxlength="300" autocomplete="street-address" placeholder="Straße, Postleitzahl, Ort" required>
+            <button type="submit">Unternehmen speichern</button>
+          </form>
+          <div class="message" id="company-message" role="status" aria-live="polite"></div>
+        </section>
+      <% } else if (page === "consultations") { %>
+        <section>
+          <h1>Beratungsanfragen</h1>
+          <p class="muted">Die 200 neuesten Anfragen können eingesehen und ihr Bearbeitungsstatus aktualisiert werden.</p>
+          <div id="consultations" aria-live="polite">Anfragen werden geladen …</div>
+          <div class="message" id="consultation-message" role="status" aria-live="polite"></div>
+        </section>
+      <% } else { %>
+        <section>
+          <h1>Verwaltung</h1>
+          <p class="muted">Angemeldet als <%= admin.email %>. Verwalten Sie Unternehmen und eingegangene Beratungsanfragen.</p>
+          <div class="panel">
+            <h2>Beratungsanfragen</h2>
+            <p id="consultation-count" class="muted">Anfragen werden geladen …</p>
+            <a href="/admin/consultations">Beratungsanfragen öffnen</a>
+          </div>
+        </section>
+      <% } %>
+    </main>
+    <% if (page === "companies") { %>
+      <dialog id="company-modal" aria-labelledby="company-modal-title">
+        <h2 id="company-modal-title"></h2>
+        <p id="company-modal-description" class="muted"></p>
+        <form id="company-edit-form" hidden>
+          <label for="edit-company-name">Unternehmensname</label>
+          <input id="edit-company-name" name="name" maxlength="120" required>
+          <label for="edit-company-phone">Telefon</label>
+          <input id="edit-company-phone" name="phone" type="tel" maxlength="50" required>
+          <label for="edit-company-email">E-Mail-Adresse</label>
+          <input id="edit-company-email" name="email" type="email" maxlength="254" required>
+          <label for="edit-company-description">Beschreibung</label>
+          <textarea id="edit-company-description" name="description" maxlength="2000" required></textarea>
+          <label for="edit-company-region">Region</label>
+          <input id="edit-company-region" name="region" maxlength="120">
+          <label for="edit-company-city">Stadt</label>
+          <input id="edit-company-city" name="city" maxlength="120">
+          <label for="edit-company-address">Neuer Standort (optional)</label>
+          <input id="edit-company-address" name="address" maxlength="300" autocomplete="street-address" placeholder="Leer lassen, um den bisherigen Standort zu behalten">
+        </form>
+        <div id="company-modal-message" class="message" role="status" aria-live="polite"></div>
+        <div class="modal-actions">
+          <button id="company-modal-cancel" class="secondary" type="button">Abbrechen</button>
+          <button id="company-modal-confirm" type="button"></button>
+        </div>
+      </dialog>
+    <% } %>
+    <script>
+      async function requestJson(url, options = {}) {
+        const response = await fetch(url, {
+          ...options,
+          headers: {
+            Accept: 'application/json',
+            ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+            ...options.headers
+          }
+        });
+        const text = await response.text();
+        let result;
+
+        try {
+          result = JSON.parse(text);
+        } catch {
+          throw new Error(`Ungültige Serverantwort (HTTP ${response.status}).`);
+        }
+
+        if (!response.ok) {
+          if (response.status === 401) window.location.assign('/login');
+          throw new Error(result.error || 'Die Anfrage ist fehlgeschlagen.');
+        }
+        return result;
+      }
+
+      document.getElementById('logout').addEventListener('click', async () => {
+        try {
+          await requestJson('/auth/logout', { method: 'POST' });
+          window.location.assign('/login');
+        } catch (error) {
+          window.alert(error.message);
+        }
+      });
+
+      const companyForm = document.getElementById('company-form');
+      if (companyForm) {
+        companyForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const button = companyForm.querySelector('button');
+          const message = document.getElementById('company-message');
+          button.disabled = true;
+          message.classList.remove('error');
+          message.textContent = 'Unternehmen und Adresse werden geprüft …';
+          try {
+            const result = await requestJson('/api/admin/companies', {
+              method: 'POST',
+              body: JSON.stringify(Object.fromEntries(new FormData(companyForm)))
+            });
+            companyForm.reset();
+            message.textContent = result.emailSent
+              ? 'Das Unternehmen wurde mit Koordinaten gespeichert.'
+              : 'Das Unternehmen wurde gespeichert; die Benachrichtigungs-E-Mail konnte nicht gesendet werden.';
+          } catch (error) {
+            message.classList.add('error');
+            message.textContent = error.message;
+          } finally {
+            button.disabled = false;
+          }
+        });
+      }
+
+      const companyFilters = document.getElementById('company-filters');
+      if (companyFilters) {
+        const list = document.getElementById('companies-list');
+        const message = document.getElementById('company-list-message');
+        const radius = companyFilters.elements.radiusKm;
+        const modal = document.getElementById('company-modal');
+        const editForm = document.getElementById('company-edit-form');
+        const modalTitle = document.getElementById('company-modal-title');
+        const modalDescription = document.getElementById('company-modal-description');
+        const modalMessage = document.getElementById('company-modal-message');
+        const modalConfirm = document.getElementById('company-modal-confirm');
+        const companiesById = new Map();
+        let selectedCompany = null;
+        let modalAction = '';
+
+        function openCompanyModal(company, action) {
+          selectedCompany = company;
+          modalAction = action;
+          modalMessage.textContent = '';
+          modalMessage.classList.remove('error');
+          editForm.hidden = action !== 'edit';
+          modalConfirm.classList.toggle('danger', action === 'delete');
+          modalConfirm.classList.toggle('secondary', action === 'pause');
+
+          if (action === 'edit') {
+            modalTitle.textContent = 'Unternehmen bearbeiten';
+            modalDescription.textContent = 'Änderungen speichern. Eine neue Adresse wird in Koordinaten umgewandelt; die Adresse selbst wird nicht gespeichert.';
+            editForm.elements.name.value = company.name;
+            editForm.elements.phone.value = company.phone || '';
+            editForm.elements.email.value = company.email || '';
+            editForm.elements.description.value = company.description || '';
+            editForm.elements.region.value = company.region || '';
+            editForm.elements.city.value = company.city || '';
+            editForm.elements.address.value = '';
+            modalConfirm.textContent = 'Änderungen speichern';
+          } else if (action === 'pause') {
+            modalTitle.textContent = company.isActive ? 'Unternehmen pausieren?' : 'Unternehmen aktivieren?';
+            modalDescription.textContent = company.isActive
+              ? 'Das Unternehmen bleibt in der Verwaltung sichtbar, wird aber nicht mehr öffentlich in Alltag angezeigt.'
+              : 'Das Unternehmen wird wieder in der öffentlichen Unternehmensliste angezeigt.';
+            modalConfirm.textContent = company.isActive ? 'Pausieren' : 'Aktivieren';
+          } else {
+            modalTitle.textContent = 'Unternehmen endgültig löschen?';
+            modalDescription.textContent = `„${company.name}“ wird dauerhaft aus der Datenbank entfernt. Diese Aktion kann nicht rückgängig gemacht werden.`;
+            modalConfirm.textContent = 'Endgültig löschen';
+          }
+          modal.showModal();
+        }
+
+        document.getElementById('company-modal-cancel').addEventListener('click', () => modal.close());
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) modal.close();
+        });
+        modalConfirm.addEventListener('click', async () => {
+          if (!selectedCompany) return;
+          modalConfirm.disabled = true;
+          modalMessage.textContent = modalAction === 'edit' ? 'Änderungen werden gespeichert …' : 'Aktion wird ausgeführt …';
+          try {
+            if (modalAction === 'edit') {
+              await requestJson(`/api/admin/companies/${encodeURIComponent(selectedCompany.id)}`, {
+                method: 'PUT',
+                body: JSON.stringify(Object.fromEntries(new FormData(editForm)))
+              });
+            } else if (modalAction === 'pause') {
+              await requestJson(`/api/admin/companies/${encodeURIComponent(selectedCompany.id)}/status`, {
+                method: 'PATCH',
+                body: JSON.stringify({ isActive: !selectedCompany.isActive })
+              });
+            } else {
+              await requestJson(`/api/admin/companies/${encodeURIComponent(selectedCompany.id)}`, {
+                method: 'DELETE'
+              });
+            }
+            modal.close();
+            await loadCompanies();
+          } catch (error) {
+            modalMessage.classList.add('error');
+            modalMessage.textContent = error.message;
+          } finally {
+            modalConfirm.disabled = false;
+          }
+        });
+
+        function displayCompanies(companies) {
+          list.replaceChildren();
+          companiesById.clear();
+          if (companies.length === 0) {
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.colSpan = 4;
+            cell.textContent = 'Keine Unternehmen für diese Filter gefunden.';
+            row.append(cell);
+            list.append(row);
+            return;
+          }
+
+          for (const company of companies) {
+            companiesById.set(String(company.id), company);
+            const row = document.createElement('tr');
+            if (!company.isActive) row.classList.add('company-paused');
+            const name = document.createElement('td');
+            name.textContent = company.name;
+            const date = document.createElement('td');
+            date.textContent = new Date(company.createdAt).toLocaleDateString('de-DE');
+            const location = document.createElement('td');
+            const [longitude, latitude] = company.location.coordinates;
+            const mapLink = document.createElement('a');
+            mapLink.href = `https://www.openstreetmap.org/?mlat=${encodeURIComponent(latitude)}&mlon=${encodeURIComponent(longitude)}#map=16/${encodeURIComponent(latitude)}/${encodeURIComponent(longitude)}`;
+            mapLink.target = '_blank';
+            mapLink.rel = 'noopener noreferrer';
+            mapLink.textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+            mapLink.setAttribute('aria-label', `Standort von ${company.name} auf OpenStreetMap anzeigen`);
+            location.append(mapLink);
+            const actions = document.createElement('td');
+            const actionGroup = document.createElement('div');
+            actionGroup.className = 'company-actions';
+            const state = document.createElement('span');
+            state.textContent = company.isActive ? 'Aktiv' : 'Pausiert';
+            actions.append(state);
+            for (const [action, label, style] of [
+              ['edit', 'Bearbeiten', ''],
+              ['pause', company.isActive ? 'Pausieren' : 'Aktivieren', 'secondary'],
+              ['delete', 'Löschen', 'danger']
+            ]) {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.textContent = label;
+              if (style) button.classList.add(style);
+              button.addEventListener('click', () => openCompanyModal(company, action));
+              actionGroup.append(button);
+            }
+            actions.append(actionGroup);
+            row.append(name, date, location, actions);
+            list.append(row);
+          }
+        }
+
+        async function loadCompanies() {
+          const query = new URLSearchParams(new FormData(companyFilters));
+          if (!query.get('location')) query.delete('radiusKm');
+          message.classList.remove('error');
+          message.textContent = 'Unternehmen werden geladen …';
+          try {
+            const companies = await requestJson(`/api/admin/companies?${query}`);
+            displayCompanies(companies);
+            message.textContent = `${companies.length} Unternehmen gefunden (maximal 500).`;
+          } catch (error) {
+            message.classList.add('error');
+            message.textContent = error.message;
+            list.replaceChildren();
+          }
+        }
+
+        companyFilters.addEventListener('submit', (event) => {
+          event.preventDefault();
+          loadCompanies();
+        });
+        document.getElementById('clear-company-filters').addEventListener('click', () => {
+          companyFilters.reset();
+          loadCompanies();
+        });
+        radius.addEventListener('change', () => {
+          if (companyFilters.elements.location.value.trim()) loadCompanies();
+        });
+        loadCompanies();
+      }
+
+      const consultationList = document.getElementById('consultations');
+      const consultationCount = document.getElementById('consultation-count');
+      if (consultationList || consultationCount) {
+        loadConsultations().catch((error) => {
+          const target = consultationList || consultationCount;
+          target.textContent = error.message;
+          target.classList.add('error');
+        });
+      }
+
+      async function loadConsultations() {
+        const consultations = await requestJson('/api/admin/consultations');
+        if (consultationCount) {
+          consultationCount.textContent = `${consultations.length} Beratungsanfrage(n)`;
+        }
+        if (!consultationList) return;
+        consultationList.replaceChildren();
+
+        if (consultations.length === 0) {
+          consultationList.textContent = 'Noch keine Beratungsanfragen vorhanden.';
+          return;
+        }
+
+        for (const consultation of consultations) {
+          const article = document.createElement('article');
+          article.className = 'consultation';
+          const heading = document.createElement('div');
+          heading.className = 'consultation-head';
+          const title = document.createElement('h2');
+          title.textContent = consultation.name;
+          const status = document.createElement('select');
+          status.setAttribute('aria-label', `Status für ${consultation.name}`);
+          for (const [value, label] of [
+            ['new', 'Neu'],
+            ['in_progress', 'In Bearbeitung'],
+            ['completed', 'Abgeschlossen']
+          ]) {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = label;
+            option.selected = consultation.status === value;
+            status.append(option);
+          }
+          status.addEventListener('change', async () => {
+            status.disabled = true;
+            try {
+              await requestJson(`/api/admin/consultations/${encodeURIComponent(consultation._id)}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ status: status.value })
+              });
+            } catch (error) {
+              document.getElementById('consultation-message').textContent = error.message;
+              status.value = consultation.status;
+            } finally {
+              status.disabled = false;
+            }
+          });
+          heading.append(title, status);
+          article.append(heading);
+
+          const details = document.createElement('p');
+          details.className = 'muted';
+          details.textContent = `${consultation.phone} · ${consultation.email || 'Keine E-Mail'} · ${consultation.location} · ${consultation.careLevel} · ${new Date(consultation.createdAt).toLocaleString('de-DE')}`;
+          article.append(details);
+          const message = document.createElement('pre');
+          message.textContent = consultation.message || 'Keine Nachricht angegeben.';
+          article.append(message);
+          consultationList.append(article);
+        }
+      }
+    </script>
+  </body>
+</html>
