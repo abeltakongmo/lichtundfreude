@@ -3,53 +3,67 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#eff9ff">
+    <meta name="theme-color" content="#faf5ff">
     <meta name="description" content="Herzliche Alltagsbegleitung und haushaltsnahe Dienstleistungen. Wir beraten Sie kostenlos und unverbindlich.">
-    <title><%= pageTitle %></title>
+    <title>Alltagsbegleitung Licht und Freude</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/alltag.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
   </head>
-  <body>
-    <div class="h-1.5 bg-rainbow"></div>
-    <header class="sticky top-0 z-30 border-b border-sky-100/80 bg-white/90 backdrop-blur-xl">
+  <body
+    data-page-title="Alltagsbegleitung Licht und Freude | Fürsorge &amp; Haushaltsnahe Dienstleistungen"
+    class="font-sans text-slate-900 bg-[#faf5ff]"
+  >
+    <div class="h-1.5 bg-gradient-to-r from-amber-300 via-purple-600 to-amber-300"></div>
+    <header class="sticky top-0 z-30 border-b border-purple-100 bg-white/90 backdrop-blur-xl">
       <div class="relative mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-5 px-5 lg:px-8">
-        <a class="flex shrink-0 items-center gap-3 font-sans text-lg font-extrabold tracking-tight text-sky-950 no-underline" href="/" aria-label="Licht und Freude Startseite">
+        <a class="flex shrink-0 items-center gap-3 font-sans text-lg font-extrabold tracking-tight text-purple-950 no-underline" href="/" aria-label="Licht und Freude Startseite">
           <span class="grid h-11 w-11 place-items-center rounded-2xl bg-amber-100 text-xl text-amber-700 shadow-sm">✦</span>
           <span>Licht und Freude</span>
         </a>
-        <nav class="nav hidden absolute left-0 right-0 top-[76px] z-20 gap-1 border-b border-sky-100 bg-white p-4 shadow-lg md:static md:flex md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none" id="main-nav" aria-label="Hauptnavigation">
-          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-sky-50 hover:text-sky-800 md:p-0 md:hover:bg-transparent" href="#leistungen">Leistungen</a>
-          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-sky-50 hover:text-sky-800 md:p-0 md:hover:bg-transparent" href="#standorte">Standorte</a>
-          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-sky-50 hover:text-sky-800 md:p-0 md:hover:bg-transparent" href="#kontakt">Kontakt</a>
-          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-sky-50 hover:text-sky-800 md:p-0 md:hover:bg-transparent" href="/login">Anmelden</a>
+        <nav class="nav flex flex-col hidden absolute left-0 right-0 top-[76px] z-20 gap-1 border-b border-purple-100 bg-white p-4 shadow-lg md:static md:flex md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none" id="main-nav" aria-label="Hauptnavigation">
+          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-purple-50 hover:text-purple-800 md:p-0 md:hover:bg-transparent" href="#leistungen">Leistungen</a>
+          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-purple-50 hover:text-purple-800 md:p-0 md:hover:bg-transparent" href="#standorte">Standorte</a>
+          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-purple-50 hover:text-purple-800 md:p-0 md:hover:bg-transparent" href="#kontakt">Kontakt</a>
+          <a class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 no-underline transition hover:bg-purple-50 hover:text-purple-800 md:p-0 md:hover:bg-transparent" href="/login">Anmelden</a>
         </nav>
         <div class="flex items-center gap-3">
-          <a class="hidden items-center gap-2 rounded-full bg-sky-700 px-5 py-3 text-sm font-bold text-white no-underline shadow-lg shadow-sky-900/10 transition hover:-translate-y-0.5 hover:bg-sky-800 sm:inline-flex" href="#kontakt">Kostenlos beraten lassen <span aria-hidden="true">↗</span></a>
-          <button class="grid h-11 w-11 place-items-center rounded-full border border-sky-100 bg-white text-xl text-sky-900 md:hidden" id="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+          <a class="hidden items-center gap-2 rounded-full bg-purple-700 px-5 py-3 text-sm font-bold text-white no-underline shadow-lg shadow-purple-900/10 transition hover:-translate-y-0.5 hover:bg-purple-800 sm:inline-flex" href="#kontakt">Kostenlos beraten lassen <span aria-hidden="true">↗</span></a>
+          <button class="grid h-11 w-11 place-items-center rounded-full border border-purple-100 bg-white text-xl text-purple-900 md:hidden" id="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false">☰</button>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="relative isolate overflow-hidden bg-gradient-to-br from-sky-100 via-white to-amber-50">
+      <section class="relative isolate overflow-hidden bg-gradient-to-br from-purple-100 via-white to-amber-50">
         <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-amber-200/50 blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-48 left-1/4 h-96 w-96 rounded-full bg-sky-200/50 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-48 left-1/4 h-96 w-96 rounded-full bg-purple-200/50 blur-3xl"></div>
         <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:py-20 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-24">
           <div class="reveal">
-            <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-sky-800 shadow-sm">
+            <span class="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-purple-800 shadow-sm">
               <span class="text-amber-500" aria-hidden="true">✦</span> Mit Herz an Ihrer Seite
             </span>
             <h1 class="mt-7 max-w-3xl font-sans text-5xl font-extrabold leading-[1.05] tracking-[-.055em] text-slate-900 sm:text-6xl lg:text-7xl">
-              Mehr Leichtigkeit für Ihren <span class="bg-gradient-to-r from-sky-600 via-indigo-500 to-rose-400 bg-clip-text text-transparent">Alltag.</span>
+              Mehr Leichtigkeit für Ihren <span class="bg-gradient-to-r from-purple-700 via-indigo-600 to-amber-500 bg-clip-text text-transparent">Alltag.</span>
             </h1>
             <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">Herzliche Begleitung und verlässliche Hilfe zu Hause – persönlich, unkompliziert und auf Ihre Bedürfnisse abgestimmt.</p>
             <div class="mt-8 flex flex-wrap gap-3">
-              <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-sky-700 px-6 py-3 text-sm font-bold text-white no-underline shadow-xl shadow-sky-900/15 transition hover:-translate-y-0.5 hover:bg-yellow-800" href="#kontakt">Kostenlose Beratung <span aria-hidden="true">↓</span></a>
-              <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-sky-200 bg-white/80 px-6 py-3 text-sm font-bold text-sky-900 no-underline transition hover:border-sky-300 hover:bg-white" href="#standorte">Standorte entdecken <span aria-hidden="true">↓</span></a>
+              <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-purple-700 px-6 py-3 text-sm font-bold text-white no-underline shadow-xl shadow-purple-900/15 transition hover:-translate-y-0.5 hover:bg-purple-800" href="#kontakt">Kostenlose Beratung <span aria-hidden="true">↓</span></a>
+              <a class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-purple-200 bg-white/80 px-6 py-3 text-sm font-bold text-purple-900 no-underline transition hover:border-purple-300 hover:bg-white" href="#standorte">Standorte entdecken <span aria-hidden="true">↓</span></a>
             </div>
             <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-slate-500">
               <span class="inline-flex items-center gap-2"><span class="text-emerald-600">✓</span> Unverbindlich</span>
@@ -58,133 +72,93 @@
             </div>
           </div>
           <div class="reveal relative mx-auto grid min-h-[330px] w-full max-w-xl place-items-center sm:min-h-[420px]" aria-hidden="true">
-            <div class="absolute inset-5 rounded-[3rem] bg-gradient-to-br from-sky-200 via-white to-amber-100 shadow-2xl shadow-sky-900/10 sm:inset-8"></div>
-            <div class="absolute inset-0 rounded-[3rem] border border-white/80 bg-rainbow opacity-70 [transform:rotate(-5deg)]"></div>
-            <div class="relative z-10 m-6 w-full max-w-sm rounded-[2rem] border border-white bg-white/90 p-8 shadow-2xl shadow-sky-900/15 backdrop-blur sm:p-10">
+            <div class="absolute inset-5 rounded-[3rem] bg-gradient-to-br from-purple-200 via-white to-amber-100 shadow-2xl shadow-purple-900/10 sm:inset-8"></div>
+            <div class="absolute inset-0 rounded-[3rem] border border-white/80 bg-gradient-to-r from-purple-500/20 to-amber-400/20 opacity-70 [transform:rotate(-5deg)]"></div>
+            <div class="relative z-10 m-6 w-full max-w-sm rounded-[2rem] border border-white bg-white/90 p-8 shadow-2xl shadow-purple-900/15 backdrop-blur sm:p-10">
               <span class="mb-7 grid h-16 w-16 place-items-center rounded-3xl bg-amber-100 text-4xl text-amber-600 shadow-inner">☀</span>
-              <p class="text-xs font-bold uppercase tracking-[.15em] text-sky-700">Da sein. Helfen.</p>
+              <p class="text-xs font-bold uppercase tracking-[.15em] text-purple-700">Da sein. Helfen.</p>
               <h2 class="mt-2 font-sans text-3xl font-extrabold leading-tight tracking-tight text-slate-900">Freude schenken.</h2>
               <p class="mt-4 leading-7 text-slate-600">Wir unterstützen Sie und Ihre Angehörigen dabei, den Alltag zu Hause leichter und schöner zu gestalten.</p>
-              <div class="mt-7 flex items-center gap-3 border-t border-sky-100 pt-5 text-sm font-semibold text-sky-800">
-                <span class="grid h-9 w-9 place-items-center rounded-full bg-sky-100 text-lg">♡</span>
+              <div class="mt-7 flex items-center gap-3 border-t border-purple-100 pt-5 text-sm font-semibold text-purple-800">
+                <span class="grid h-9 w-9 place-items-center rounded-full bg-purple-100 text-lg">♡</span>
                 Für ein gutes Gefühl zu Hause
               </div>
             </div>
             <span class="absolute right-2 top-7 grid h-16 w-16 place-items-center rounded-full bg-amber-300 text-2xl shadow-lg shadow-amber-900/10 sm:right-6 sm:top-4">✦</span>
           </div>
         </div>
-        <div class="h-1.5 bg-rainbow opacity-80"></div>
+        <div class="h-1.5 bg-gradient-to-r from-amber-300 via-purple-600 to-amber-300 opacity-80"></div>
       </section>
 
       <section class="bg-white py-20 sm:py-24" id="leistungen">
         <div class="mx-auto max-w-7xl px-5 lg:px-8">
           <div class="reveal mx-auto mb-12 max-w-2xl text-center">
-            <span class="text-xs font-bold uppercase tracking-[.16em] text-sky-700">Was wir tun</span>
+            <span class="text-xs font-bold uppercase tracking-[.16em] text-purple-700">Was wir tun</span>
             <h2 class="mt-3 font-sans text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Hilfe, die sich nach Ihnen richtet.</h2>
             <p class="mt-4 leading-7 text-slate-600">Mit Zeit, Aufmerksamkeit und einem offenen Ohr unterstützen wir dort, wo es im Alltag wirklich zählt.</p>
           </div>
-          <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <article class="reveal rounded-3xl border border-sky-100 bg-sky-50/60 p-7 transition hover:-translate-y-1 hover:bg-sky-50 hover:shadow-xl hover:shadow-sky-900/5">
+          <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <article class="reveal rounded-3xl border border-sky-300 bg-sky-50/60 p-7 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-900/5">
               <span class="grid h-12 w-12 place-items-center rounded-2xl bg-sky-100 text-2xl text-sky-700" aria-hidden="true">♡</span>
-              <h3 class="mt-5 text-xl font-bold text-slate-900">Alltagsbegleitung & Betreuung</h3>
-              <p class="mt-3 leading-7 text-slate-600">Gemeinsame Spaziergänge, anregende Gesellschaft, Vorlesen, Gedächtnistraining und herzliche Ansprache für mehr Lebensfreude..</p>
+              <h3 class="mt-5 text-xl font-bold text-slate-900">Alltagsbegleitung</h3>
+              <p class="mt-3 leading-7 text-slate-600">Gemeinsame Spaziergänge, Begleitung zu Arztterminen, Einkäufe und Gespräche für mehr Lebensfreude.</p>
             </article>
-            <article class="reveal rounded-3xl border border-emerald-100 bg-emerald-50/50 p-7 transition hover:-translate-y-1 hover:bg-emerald-50 hover:shadow-xl hover:shadow-emerald-900/5">
-              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-emerald-100 text-2xl text-emerald-700" aria-hidden="true">⌂</span>
-              <h3 class="mt-5 text-xl font-bold text-slate-900">Haushaltsnahe Dienste</h3>
-              <p class="mt-3 leading-7 text-slate-600">Sauberkeit und Wohlbefinden in Ihrem Zuhause. Wir halten Ihre Wohnung in Schuss und unterstützen beim täglichen Haushalt..</p>
+            <article class="reveal rounded-3xl border border-purple-300 bg-purple-50/50 p-7 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-900/5">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl bg-purple-100 text-2xl text-purple-700" aria-hidden="true">⌂</span>
+              <h3 class="mt-5 text-xl font-bold text-slate-900">Haushaltsnahe Hilfe</h3>
+              <p class="mt-3 leading-7 text-slate-600">Reinigung der Wohnung, Wäschepflege, Kochen und tägliche Besorgungen für ein sauberes Zuhause.</p>
             </article>
-            <article class="reveal rounded-3xl border border-amber-100 bg-amber-50/60 p-7 transition hover:-translate-y-1 hover:bg-amber-50 hover:shadow-xl hover:shadow-amber-900/5">
+            <article class="reveal rounded-3xl border border-amber-300 bg-amber-50/60 p-7 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-900/5">
               <span class="grid h-12 w-12 place-items-center rounded-2xl bg-amber-100 text-2xl text-amber-700" aria-hidden="true">✳</span>
-              <h3 class="mt-5 text-xl font-bold text-slate-900">Hilfe für Angehörige</h3>
-              <p class="mt-3 leading-7 text-slate-600">Schluss mit dem Papierkram. Wir unterstützen beim Sortieren von Post, Ausfüllen von Anträgen und dem Kontakt mit Ämtern..</p>
+              <h3 class="mt-5 text-xl font-bold text-slate-900">Entlastung Angehöriger</h3>
+              <p class="mt-3 leading-7 text-slate-600">Zuverlässige stundenweise Betreuung nach Bedarf, um pflegende Angehörige optimal zu entlasten.</p>
             </article>
-            <article class="reveal rounded-3xl border border-amber-100 bg-red-50/60 p-7 transition hover:-translate-y-1 hover:bg-amber-50 hover:shadow-xl hover:shadow-amber-900/5">
-                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-amber-100 text-2xl text-amber-700" aria-hidden="true">€</span>
-                <h3 class="mt-5 text-xl font-bold text-slate-900">Pflegekassen-Leistungen</h3>
-                <p class="mt-3 leading-7 text-slate-600">Guthaben nutzen! Ab Pflegegrad 1 haben Sie Anspruch auf 125 € monatlichen Entlastungsbetrag. Wir rechnen direkt ab..</p>
+            <article class="reveal rounded-3xl border border-purple-200 bg-purple-900 p-7 text-white transition hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-900/10">
+                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-amber-300 text-2xl text-purple-950 font-bold" aria-hidden="true">€</span>
+                <h3 class="mt-5 text-xl font-bold text-white">Pflegekassen</h3>
+                <p class="mt-3 leading-7 text-purple-100">Abrechnung direkt über die Pflegekasse möglich (Entlastungsbetrag nach § 45b SGB XI).</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="bg-gradient-to-br from-sky-50 via-white to-indigo-50 py-20 sm:py-24" id="standorte">
+      <section class="bg-gradient-to-br from-purple-50 via-white to-indigo-50 py-20 sm:py-24" id="standorte">
         <div class="mx-auto max-w-7xl px-5 lg:px-8">
           <div class="reveal mx-auto mb-10 max-w-2xl text-center">
-            <span class="text-xs font-bold uppercase tracking-[.16em] text-sky-700">In Ihrer Nähe</span>
+            <span class="text-xs font-bold uppercase tracking-[.16em] text-purple-700">In Ihrer Nähe</span>
             <h2 class="mt-3 font-sans text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Unsere Standorte</h2>
             <p class="mt-4 leading-7 text-slate-600">Finden Sie aktive Unternehmen in Ihrer Nähe und entdecken Sie passende Unterstützung.</p>
           </div>
-          <form class="reveal mx-auto mb-6 grid max-w-5xl gap-3 rounded-3xl border border-sky-100 bg-white p-4 shadow-xl shadow-sky-900/5 sm:grid-cols-2 lg:grid-cols-[1.3fr_1.2fr_.8fr_auto]" id="company-filter" data-server-url="<%= serverUrl %>">
+          <form class="reveal mx-auto mb-6 grid max-w-5xl gap-3 rounded-3xl border border-purple-100 bg-white p-4 shadow-xl shadow-purple-900/5 sm:grid-cols-2 lg:grid-cols-[1.3fr_1.2fr_.8fr_auto]" id="company-filter">
             <label class="sr-only" for="company-location">Ort oder Postleitzahl</label>
-            <input class="h-12 min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="company-location" name="location" type="search" maxlength="300" placeholder="Ort oder Postleitzahl" aria-label="Ort oder Postleitzahl" required>
+            <input class="h-12 min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="company-location" name="location" type="search" maxlength="300" placeholder="Ort oder Postleitzahl" aria-label="Ort oder Postleitzahl" required>
             <label class="sr-only" for="company-text-filter">Unternehmen oder Leistung</label>
-            <input class="h-12 min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="company-text-filter" name="filter" type="search" maxlength="120" placeholder="Unternehmen oder Leistung" aria-label="Unternehmen oder Leistung filtern">
+            <input class="h-12 min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="company-text-filter" name="filter" type="search" maxlength="120" placeholder="Unternehmen oder Leistung" aria-label="Unternehmen oder Leistung filtern">
             <label class="sr-only" for="company-radius">Suchradius</label>
-            <select class="h-12 min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-700 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="company-radius" name="radiusKm" aria-label="Suchradius">
+            <select class="h-12 min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-700 outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="company-radius" name="radiusKm" aria-label="Suchradius">
               <option value="10">Umkreis 10 km</option>
               <option value="25" selected>Umkreis 25 km</option>
               <option value="50">Umkreis 50 km</option>
               <option value="100">Umkreis 100 km</option>
             </select>
-            <button class="h-12 rounded-2xl bg-sky-700 px-6 text-sm font-bold text-white shadow-lg shadow-sky-900/10 transition hover:bg-sky-800 disabled:cursor-wait disabled:opacity-60" type="submit">Suchen <span aria-hidden="true">→</span></button>
+            <button class="h-12 rounded-2xl bg-purple-700 px-6 text-sm font-bold text-white shadow-lg shadow-purple-900/10 transition hover:bg-purple-800 disabled:cursor-wait disabled:opacity-60" type="submit">Suchen <span aria-hidden="true">→</span></button>
           </form>
-          <p class="company-status mb-5" id="company-status" role="status" aria-live="polite">
-            <% if (companiesLoadError) { %>
-              Standorte konnten gerade nicht geladen werden.
-            <% } else if (companies.length) { %>
-              <%= companies.length %> aktive Standorte.
-            <% } else { %>
-              Aktuell sind keine aktiven Standorte eingetragen.
-            <% } %>
-          </p>
-          <div class="company-grid" id="company-results">
-            <% if (companiesLoadError) { %>
-              <p class="empty-state">Die Standortliste ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut.</p>
-            <% } else if (companies.length) { %>
-              <% companies.forEach((company) => { %>
-                <article class="company-card">
-                    <div class="company-mark" aria-hidden="true">⌂</div>
-                    <h3><%= company.name %></h3>
-                    <p class="company-location">
-                        <span>Region: <%= company.region || "Nicht angegeben" %></span>
-                        <span>Stadt: <%= company.city || "Nicht angegeben" %></span>
-                    </p>
-                    <p><%= company.description %></p>
-                    
-                            
-                    <div class="space-y-2 text-xs text-slate-600 mb-6">
-                        <% if (company.phone) { %>
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-phone text-sky-600"></i> <%= company.phone %></div>
-                        <% } %>
-                        <% if (company.email) { %>
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-envelope text-sky-600"></i> <%= company.email %></div>
-                    
-                        <% } %>
-                        <% if (company.location && company.location.coordinates) { %>
-                        <a href="https://www.google.com/maps/search/?api=1&amp;query=<%= encodeURIComponent(company.location.coordinates[1] + ',' + company.location.coordinates[0]) %>" target="_blank" rel="noopener noreferrer">Auf Google Maps ansehen ↗</a>
-                        <% } %>
-                    </div>
-                </article>
-              <% }); %>
-            <% } else { %>
-              <p class="empty-state">Sobald aktive Unternehmen hinzugefügt wurden, erscheinen sie hier.</p>
-            <% } %>
-          </div>
+          <p class="company-status mb-5" id="company-status" role="status" aria-live="polite">Passende Standorte werden gesucht …</p>
+          <div class="company-grid" id="company-results"></div>
         </div>
       </section>
 
-      <section class="relative overflow-hidden bg-sky-800 py-16 text-white sm:py-20" id="pflegekasse">
-        <div class="pointer-events-none absolute -right-20 -top-28 h-80 w-80 rounded-full bg-sky-600/70 blur-3xl"></div>
+      <section class="relative overflow-hidden bg-gradient-to-r from-purple-900 via-purple-800 to-indigo-900 py-16 text-white sm:py-20" id="pflegekasse">
+        <div class="pointer-events-none absolute -right-20 -top-28 h-80 w-80 rounded-full bg-purple-600/70 blur-3xl"></div>
         <div class="relative mx-auto flex max-w-7xl flex-col items-start gap-8 px-5 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div class="reveal max-w-3xl">
-            <span class="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-sky-100">Gut zu wissen</span>
+            <span class="inline-flex rounded-full border border-amber-300/40 bg-amber-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-amber-300">Gut zu wissen</span>
             <h2 class="mt-5 font-sans text-3xl font-extrabold tracking-tight sm:text-4xl">Entlastung kann leichter sein, als Sie denken.</h2>
-            <p class="mt-4 max-w-2xl leading-7 text-sky-100">Ab Pflegegrad 1 kann der Entlastungsbetrag für anerkannte Unterstützungsangebote genutzt werden. Wir erklären Ihnen gern persönlich, welche Möglichkeiten für Ihre Situation infrage kommen.</p>
+            <p class="mt-4 max-w-2xl leading-7 text-purple-100">Ab Pflegegrad 1 kann der Entlastungsbetrag für anerkannte Unterstützungsangebote genutzt werden. Wir erklären Ihnen gern persönlich, welche Möglichkeiten für Ihre Situation infrage kommen.</p>
           </div>
-          <div class="reveal grid h-36 w-36 shrink-0 place-content-center rounded-full border border-white/30 bg-white/10 text-center shadow-inner">
-            <strong class="text-3xl font-extrabold text-amber-200">§ 45b</strong>
-            <span class="mt-1 text-xs text-sky-100">Wir beraten Sie dazu</span>
+          <div class="reveal grid h-36 w-36 shrink-0 place-content-center rounded-full border border-amber-300/40 bg-white/10 text-center shadow-inner">
+            <strong class="text-3xl font-extrabold text-amber-300">§ 45b</strong>
+            <span class="mt-1 text-xs text-purple-100">Wir beraten Sie dazu</span>
           </div>
         </div>
       </section>
@@ -192,42 +166,40 @@
       <section class="bg-white py-20 sm:py-24" id="kontakt">
         <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[.8fr_1.2fr] lg:gap-16 lg:px-8">
           <div class="reveal">
-            <span class="text-xs font-bold uppercase tracking-[.16em] text-sky-700">Wir sind für Sie da</span>
+            <span class="text-xs font-bold uppercase tracking-[.16em] text-purple-700">Wir sind für Sie da</span>
             <h2 class="mt-3 font-sans text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Lassen Sie uns sprechen.</h2>
             <p class="mt-5 leading-7 text-slate-600">Erzählen Sie uns, wobei Sie Unterstützung brauchen. Wir melden uns zeitnah für ein persönliches, unverbindliches Gespräch.</p>
             <div class="mt-8 space-y-4">
-              <a class="flex items-center gap-3 text-sm font-semibold text-sky-800 no-underline hover:text-sky-950" href="mailto:info@licht-und-freude.com"><span class="grid h-11 w-11 place-items-center rounded-2xl bg-sky-100 text-lg">✉</span> info@licht-und-freude.com</a>
-              <a class="flex items-center gap-3 text-sm font-semibold text-sky-800 no-underline hover:text-sky-950" href="tel:08912345678"><span class="grid h-11 w-11 place-items-center rounded-2xl bg-amber-100 text-lg">☎</span> 089 / 123 456 78</a>
+              <a class="flex items-center gap-3 text-sm font-semibold text-purple-800 no-underline hover:text-purple-950" href="mailto:Doberenzsophie@yahoo.com"><span class="grid h-11 w-11 place-items-center rounded-2xl bg-purple-100 text-lg">✉</span> Doberenzsophie@yahoo.com</a>
+              <a class="flex items-center gap-3 text-sm font-semibold text-purple-800 no-underline hover:text-purple-950" href="tel:017628217910"><span class="grid h-11 w-11 place-items-center rounded-2xl bg-amber-100 text-lg">☎</span> 0176 28217910</a>
             </div>
           </div>
-          <div class="reveal rounded-3xl border border-sky-100 bg-sky-50/50 p-5 shadow-xl shadow-sky-900/5 sm:p-8">
+          <div class="reveal rounded-3xl border border-purple-100 bg-purple-50/50 p-5 shadow-xl shadow-purple-900/5 sm:p-8">
             <form id="contact-form">
               <div class="grid gap-5 sm:grid-cols-2">
                 <div class="grid gap-2">
                   <label class="text-sm font-semibold text-slate-700" for="contact-name">Ihr Name *</label>
-                  <input class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="contact-name" name="name" type="text" maxlength="120" autocomplete="name" placeholder="Vor- und Nachname" required>
+                  <input class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="contact-name" name="name" type="text" maxlength="120" autocomplete="name" placeholder="Vor- und Nachname" required>
                 </div>
                 <div class="grid gap-2">
                   <label class="text-sm font-semibold text-slate-700" for="contact-phone">Telefonnummer *</label>
-                  <input class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="contact-phone" name="phone" type="tel" maxlength="50" autocomplete="tel" placeholder="Ihre Telefonnummer" required>
+                  <input class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="contact-phone" name="phone" type="tel" maxlength="50" autocomplete="tel" placeholder="Ihre Telefonnummer" required>
                 </div>
                 <div class="grid gap-2">
                   <label class="text-sm font-semibold text-slate-700" for="contact-email">E-Mail-Adresse</label>
-                  <input class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="contact-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@beispiel.de">
+                  <input class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="contact-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@beispiel.de">
                 </div>
                 <div class="grid gap-2">
                   <label class="text-sm font-semibold text-slate-700" for="contact-location">Gewünschter Standort *</label>
-                  <select class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="contact-location" name="location" required>
+                  <select class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="contact-location" name="location" required>
+                    <option value="neufahrn">Neufahrn bei Freising & Umgebung</option>
                     <option value="muenchen">München</option>
-                    <option value="memmingen">Memmingen</option>
-                    <option value="ingolstadt">Ingolstadt</option>
-                    <option value="holzkirchen">Holzkirchen</option>
                     <option value="weitere">Weitere Region</option>
                   </select>
                 </div>
                 <div class="grid gap-2 sm:col-span-2">
                   <label class="text-sm font-semibold text-slate-700" for="contact-care-level">Pflegegrad vorhanden? *</label>
-                  <select class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="contact-care-level" name="careLevel" required>
+                  <select class="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="contact-care-level" name="careLevel" required>
                     <option>Ja, Pflegegrad 1-5</option>
                     <option>Noch kein Pflegegrad</option>
                     <option>Privatzahlung / Haushaltsnah</option>
@@ -235,10 +207,10 @@
                 </div>
                 <div class="grid gap-2 sm:col-span-2">
                   <label class="text-sm font-semibold text-slate-700" for="contact-message">Ihre Nachricht oder Wünsche</label>
-                  <textarea class="min-h-32 resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100" id="contact-message" name="message" maxlength="2000" placeholder="Wie können wir Sie unterstützen?"></textarea>
+                  <textarea class="min-h-32 resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-purple-400 focus:ring-4 focus:ring-purple-100" id="contact-message" name="message" maxlength="2000" placeholder="Wie können wir Sie unterstützen?"></textarea>
                 </div>
               </div>
-              <button class="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-sky-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-sky-900/10 transition hover:bg-sky-800 disabled:cursor-wait disabled:opacity-60" type="submit">Kostenlose Beratung anfragen <span aria-hidden="true">→</span></button>
+              <button class="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-purple-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-purple-900/10 transition hover:bg-purple-800 disabled:cursor-wait disabled:opacity-60" type="submit">Kostenlose Beratung anfragen <span aria-hidden="true">→</span></button>
             </form>
             <div class="notice hidden mt-4 rounded-xl px-4 py-3 text-sm leading-6" id="success-box" role="status" aria-live="polite"></div>
             <div class="notice error hidden mt-4 rounded-xl px-4 py-3 text-sm leading-6" id="error-box" role="alert"></div>
@@ -247,21 +219,23 @@
       </section>
     </main>
 
-    <footer class="border-t border-sky-100 bg-sky-50 py-8">
+    <footer class="border-t border-purple-100 bg-purple-50 py-8">
       <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-5 px-5 text-sm text-slate-500 sm:flex-row sm:items-center lg:px-8">
-        <a class="flex items-center gap-3 font-bold text-sky-950 no-underline" href="/">
+        <a class="flex items-center gap-3 font-bold text-purple-950 no-underline" href="/">
           <span class="grid h-9 w-9 place-items-center rounded-xl bg-amber-100 text-amber-700">✦</span>
           Licht und Freude
         </a>
         <span>Mit Herz für ein leichteres Leben zu Hause.</span>
         <nav class="flex gap-5" aria-label="Weiterführende Links">
-          <a class="text-slate-500 no-underline hover:text-sky-800" href="/login">Anmelden</a>
-          <a class="text-slate-500 no-underline hover:text-sky-800" href="/signup">Konto erstellen</a>
+          <a class="text-slate-500 no-underline hover:text-purple-800" href="/login">Anmelden</a>
+          <a class="text-slate-500 no-underline hover:text-purple-800" href="/signup">Konto erstellen</a>
         </nav>
       </div>
     </footer>
 
     <script>
+      document.title = document.body.dataset.pageTitle;
+
       const menuToggle = document.getElementById('menu-toggle');
       const mainNav = document.getElementById('main-nav');
       menuToggle.addEventListener('click', () => {
@@ -291,7 +265,7 @@
       const companyResults = document.getElementById('company-results');
       const companyStatus = document.getElementById('company-status');
       const companySearchButton = companyFilter.querySelector('button[type="submit"]');
-      const apiBase = companyFilter.dataset.serverUrl.replace(/\/+$/, '') || window.location.origin;
+      const apiBase = window.location.origin;
       let companySearchId = 0;
 
       function showCompanyMessage(text) {
@@ -375,14 +349,14 @@
             links.className = 'company-links';
             if (company.phone) {
               const phone = document.createElement('div');
-              phone.innerHTML = '<i class="fa-solid text-orange-500 fa-phone"></i> ' + company.phone.replace(/[^\d+]/g, '');
-              phone.className = 'company-phone px-4 py-2 rounded-xl bg-sky-50 text-sm font-semibold text-sky-800 shadow-sm transition hover:bg-sky-100';
+              phone.innerHTML = '<i class="fa-solid text-amber-500 fa-phone"></i> ' + company.phone.replace(/[^\d+]/g, '');
+              phone.className = 'company-phone px-4 py-2 rounded-xl bg-purple-50 text-sm font-semibold text-purple-800 shadow-sm transition hover:bg-purple-100';
               links.append(phone);
             }
             if (company.email) {
               const email = document.createElement('div');
               email.innerHTML = '<i class="fa-solid fa-envelope"></i> ' + company.email;
-              email.className = 'company-email px-4 py-2 rounded-xl bg-sky-50 text-sm font-semibold text-sky-800 shadow-sm transition hover:bg-sky-100';
+              email.className = 'company-email px-4 py-2 rounded-xl bg-purple-50 text-sm font-semibold text-purple-800 shadow-sm transition hover:bg-purple-100';
               links.append(email);
             }
             const locationLink = document.createElement('a');
