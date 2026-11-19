@@ -12,8 +12,6 @@ const adminRoute = require("./routes/adminRoute");
 const { renderAdmin } = require("./controllers/adminController");
 const consultationRoute = require("./routes/consultationRoute");
 const companyRoute = require("./routes/companyRoute");
-const Company = require("./models/company");
-
 const app = express();
 const port = process.env.PORT || 3005;
 const mongoUri = process.env.MONGODB_URI?.trim();
@@ -60,31 +58,20 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-app.get("/", async (req, res) => {
-  try {
-    const companies = await Company.find({ isActive: { $ne: false } })
-      .select("name phone email description region city location")
-      .sort({ createdAt: -1 })
-      .limit(100)
-      .lean();
+app.get("/", (req, res) => {
+  return res.render("alltag");
+});
 
-    return res.render("alltag", {
-      pageTitle:
-        "Alltagsbegleitung Licht und Freude | Fürsorge & Haushaltsnahe Dienstleistungen",
-      serverUrl: process.env.SERVER_URL?.trim() || "",
-      companies,
-      companiesLoadError: false,
-    });
-  } catch (error) {
-    console.error("Public companies could not be loaded:", error);
-    return res.status(500).render("alltag", {
-      pageTitle:
-        "Alltagsbegleitung Licht und Freude | Fürsorge & Haushaltsnahe Dienstleistungen",
-      serverUrl: process.env.SERVER_URL?.trim() || "",
-      companies: [],
-      companiesLoadError: true,
-    });
-  }
+app.get("/impressum", (req, res) => {
+  return res.render("legal", { page: "impressum" });
+});
+
+app.get("/agb", (req, res) => {
+  return res.render("legal", { page: "agb" });
+});
+
+app.get("/datenschutz", (req, res) => {
+  return res.render("legal", { page: "datenschutz" });
 });
 
 app.use("/api", (req, res) => {
